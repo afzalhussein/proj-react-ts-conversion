@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Counter } from './components/counter';
 
 function App() {
+  const [counter, setCounter] = useState(0);
   return (
     <div className="App">
-      <Counter />
+      <div>{counter}</div>
+      <Counter handleClick={ setCounter } />
     </div>
   );
 }
