@@ -1,0 +1,9 @@
+button {
+    font-size: xx-small;
+    background-color: seashell;
+    border-color: currentColor;
+    border-style: double;
+    border-radius: 25px;
+    padding: 5px;
+    box-shadow: 5px 5px 5px silver;
+}
