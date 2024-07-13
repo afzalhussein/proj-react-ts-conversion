@@ -1,31 +1,9 @@
-import React, { Component } from "react";
+import { Component } from "react";
+import { RadioState } from "./RadioState";
+import { RadioPropsType } from "./RadioPropsType";
+import "./RadioButton.css";
 
-type RadioPropsType = {
-  order: number;
-  id: string;
-  name: string;
-  label: string;
-};
-
-type StyleType = {
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-  width?: number;
-  height?: number;
-  fontSize?: any;
-};
-
-type RadioState = {
-  outerStyle: StyleType;
-  innerStyle: StyleType;
-  selectedStyle: StyleType;
-  taggerStyle: StyleType;
-  textStyle?: StyleType;
-};
-
-class RadioButton extends React.Component<RadioPropsType, RadioState> {
+class RadioButton extends Component<RadioPropsType, RadioState> {
   constructor(props: RadioPropsType) {
     super(props);
     this.handleResize = this.handleResize.bind(this);
