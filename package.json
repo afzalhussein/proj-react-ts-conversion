@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@types/jest": "^27.5.2",
-    "@types/jqueryui": "^1.12.23",
     "@types/node": "^16.18.97",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
@@ -46,6 +45,8 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/jquery": "^3.5.30",
+    "@types/jqueryui": "^1.12.24",
+    "@types/testing-library__jest-dom": "^5.14.9",
     "@types/testing-library__react": "^10.0.1"
   }
 }

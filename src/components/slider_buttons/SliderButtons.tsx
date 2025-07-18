@@ -1,6 +1,7 @@
 import React from "react";
 import { ReactNode } from "react";
 import $ from 'jquery';
+import 'jqueryui'; // Import jQuery UI
 
 type SliderButtonsState = {
   sliderValue: number;
@@ -8,7 +9,9 @@ type SliderButtonsState = {
 
 type SliderButtonsProps = {};
 
-class SliderButtons extends React.Component<SliderButtonsProps, SliderButtonsState, {}> {
+class SliderButtons extends React.Component<SliderButtonsProps, SliderButtonsState> {
+  private sliderRef = React.createRef<HTMLDivElement>();
+
   constructor(props: SliderButtonsProps) {
     super(props);
     this.state = {
@@ -18,36 +21,38 @@ class SliderButtons extends React.Component<SliderButtonsProps, SliderButtonsSta
     this.handleSlide = this.handleSlide.bind(this);
   }
 
-  handleSlide(event: any, ui: { value: any }) {
+  handleSlide(event: Event, ui: { value: number }) {
     this.setState({ sliderValue: ui.value });
   }
 
   handleChange(value: number) {
     return () => {
-      $("#slider").slider("value", this.state.sliderValue + value);
+      ($("#slider") as any).slider("value", this.state.sliderValue + value);
     };
   }
 
   componentDidMount(): void {
-    $("#slider").on("slide", this.handleSlide as any);
+    ($("#slider") as any).slider({
+      slide: this.handleSlide
+    });
   }
 
-  componentWillUnmount = () => {
-    $("#slider").off("slide", this.handleSlide as any);
-  };
+  componentWillUnmount() {
+    ($("#slider") as any).slider("destroy");
+  }
 
   render(): ReactNode {
     return (
       <div>
         <button
-          disabled={this.state.sliderValue < 1 ? true : false}
+          disabled={this.state.sliderValue < 1}
           className="btn default-btn"
           onClick={this.handleChange(-1)}
         >
           1 Less ({this.state.sliderValue - 1})
         </button>
         <button
-          disabled={this.state.sliderValue > 99 ? true : false}
+          disabled={this.state.sliderValue > 99}
           className="btn default-btn"
           onClick={this.handleChange(1)}
         >

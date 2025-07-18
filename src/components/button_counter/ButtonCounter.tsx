@@ -1,29 +1,23 @@
-import {
-  MouseEventHandler,
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-} from "react";
-import "./ButtonCounter.css";
+// In your ButtonCounter.tsx
+import React from 'react';
 
-type ButtonCounterType = (props: {
-  handleClick: MouseEventHandler<HTMLButtonElement> | undefined;
-  children:
-    | string
-    | number
-    | boolean
-    | ReactElement<any, string | JSXElementConstructor<any>>
-    | Iterable<ReactNode>
-    | ReactPortal
-    | null
-    | undefined;
-}) => JSX.Element;
+type ButtonCounterProps = {
+  handleClick: React.MouseEventHandler<HTMLButtonElement>;
+  children: React.ReactNode;
+  className?: string;
+};
 
-const ButtonCounter: ButtonCounterType = (props) => {
+const ButtonCounter: React.FC<ButtonCounterProps> = ({
+  handleClick,
+  children,
+  className
+}) => {
   return (
-    <button type="button" onClick={props.handleClick}>
-      {props.children}
+    <button
+      onClick={handleClick}
+      className={className} 
+    >
+      {children}
     </button>
   );
 };
