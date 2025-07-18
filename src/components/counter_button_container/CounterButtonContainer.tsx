@@ -1,5 +1,5 @@
 import ButtonCounter from "../button_counter/ButtonCounter";
-import "./CounterButtonContainer.css";
+import styles from './CounterButtonContainer.module.css';
 
 type CounterButtonContainerType = (props: {
   handleClick: (arg0: {
@@ -17,7 +17,7 @@ const CounterButtonContainer: CounterButtonContainerType = ({
     handleClick((counter: number) => counter - 1);
 
   return (
-    <div>
+    <div className={styles.counter_buttons}>
       <ButtonCounter handleClick={handleClickIncrement}>
         Increment
       </ButtonCounter>
