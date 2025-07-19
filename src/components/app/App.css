@@ -35,3 +35,68 @@
   position: relative;
   /* Optionally add margin or padding */
 }
+
+/* App.css */
+.App {
+  padding: 20px;
+}
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-box {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-box h2 {
+  margin-top: 0;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+/* Counter box specific styles */
+.counter-box {
+  align-items: center;
+  text-align: center;
+}
+
+/* Radio buttons box specific styles */
+.radio-box {
+  min-height: 200px;
+}
+
+/* Slider box specific styles */
+.slider-box {
+  min-height: 200px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* App.css */
+.dashboard-box.radio-box {
+  min-width: 250px; /* Increased minimum width */
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.dashboard-box.radio-box h2 {
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+}
