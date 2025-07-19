@@ -4,8 +4,11 @@ import CounterButtonContainer from "../counter_button_container/CounterButtonCon
 import "./App.css";
 import RadioButton from '../radio_button/RadioButton';
 import RadioButtonContainer from "../radio_button_container/RadioButtonContainer";
+import SliderButtons from "../slider_buttons/SliderButtons";
 function App() {
   const [counter, setCounter] = useState(0);
+  const [value, setValue] = useState(50);
+
   return (
     <div className="App">
       <div className="counter-section">
@@ -22,6 +25,18 @@ function App() {
         <RadioButton order={5} id={"radio5"} name={"radio-group2"} label={"Test 5"}></RadioButton>
         <RadioButton order={6} id={"radio6"} name={"radio-group2"} label={"Test 6"}></RadioButton>
       </RadioButtonContainer> 
+      <div className="slider-buttons-section">
+        <div style={{ maxWidth: '600px', margin: '20px auto', padding: '20px' }}>
+          <h2>Current Value: {value}</h2>
+          <SliderButtons
+            value={value}
+            onChange={setValue}
+            min={0}
+            max={100}
+            step={5} // Optional step parameter
+          />
+        </div>
+      </div>
     </div>
   );
 }

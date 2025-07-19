@@ -1,66 +1,104 @@
 import React from "react";
-import { ReactNode } from "react";
-import $ from 'jquery';
-import 'jqueryui'; // Import jQuery UI
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
+import styles from './SliderButtons.module.css';
 
-type SliderButtonsState = {
-  sliderValue: number;
+// Define style objects for rc-slider
+const sliderStyles = {
+  trackStyle: {
+    backgroundColor: '#4a90e2',
+    height: 6
+  },
+  handleStyle: {
+    borderColor: '#4a90e2',
+    height: 20,
+    width: 20,
+    marginTop: -7,
+    backgroundColor: '#fff',
+  },
+  railStyle: {
+    backgroundColor: '#d8d8d8',
+    height: 6
+  }
 };
 
-type SliderButtonsProps = {};
+// Fallback arrow components
+const FallbackArrow = ({ direction }: { direction: 'left' | 'right' }) => (
+  <span className={direction === 'left' ? styles.arrowLeft : styles.arrowRight} />
+);
 
-class SliderButtons extends React.Component<SliderButtonsProps, SliderButtonsState> {
-  private sliderRef = React.createRef<HTMLDivElement>();
+type SliderButtonsProps = {
+  value: number;
+  onChange: (value: number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+};
 
-  constructor(props: SliderButtonsProps) {
-    super(props);
-    this.state = {
-      sliderValue: 0,
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSlide = this.handleSlide.bind(this);
+const SliderButtons: React.FC<SliderButtonsProps> = ({
+  value,
+  onChange,
+  min = 0,
+  max = 100,
+  step = 1
+}) => {
+  // Try to use react-icons, fallback to CSS arrows if not available
+  let LeftArrow, RightArrow;
+
+  try {
+    const icons = require('react-icons/fa');
+    LeftArrow = icons.FaArrowLeft;
+    RightArrow = icons.FaArrowRight;
+  } catch {
+    LeftArrow = () => <FallbackArrow direction="left" />;
+    RightArrow = () => <FallbackArrow direction="right" />;
   }
 
-  handleSlide(event: Event, ui: { value: number }) {
-    this.setState({ sliderValue: ui.value });
-  }
+  const handleSliderChange = (val: number | number[]) => {
+    if (typeof val === 'number') {
+      onChange(val);
+    } else if (Array.isArray(val)) {
+      onChange(val[0]);
+    }
+  };
 
-  handleChange(value: number) {
-    return () => {
-      ($("#slider") as any).slider("value", this.state.sliderValue + value);
-    };
-  }
+  const handleIncrease = () => onChange(Math.min(value + step, max));
+  const handleDecrease = () => onChange(Math.max(value - step, min));
 
-  componentDidMount(): void {
-    ($("#slider") as any).slider({
-      slide: this.handleSlide
-    });
-  }
+  return (
+    <div className={styles.sliderContainer}>
+      <button
+        disabled={value <= min}
+        onClick={handleDecrease}
+        className={styles.sliderButton}
+      >
+        <LeftArrow />
+        <span>Decrease</span>
+      </button>
 
-  componentWillUnmount() {
-    ($("#slider") as any).slider("destroy");
-  }
-
-  render(): ReactNode {
-    return (
-      <div>
-        <button
-          disabled={this.state.sliderValue < 1}
-          className="btn default-btn"
-          onClick={this.handleChange(-1)}
-        >
-          1 Less ({this.state.sliderValue - 1})
-        </button>
-        <button
-          disabled={this.state.sliderValue > 99}
-          className="btn default-btn"
-          onClick={this.handleChange(1)}
-        >
-          1 More ({this.state.sliderValue + 1})
-        </button>
+      <div className={styles.sliderTrack}>
+        <Slider
+          value={value}
+          onChange={handleSliderChange}
+          min={min}
+          max={max}
+          step={step}
+          trackStyle={sliderStyles.trackStyle}
+          handleStyle={sliderStyles.handleStyle}
+          railStyle={sliderStyles.railStyle}
+        />
       </div>
-    );
-  }
-}
+
+      <button
+        disabled={value >= max}
+        onClick={handleIncrease}
+        className={styles.sliderButton}
+      >
+        <span>Increase</span>
+        <RightArrow />
+      </button>
+    </div>
+  );
+};
 
 export default SliderButtons;
