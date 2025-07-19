@@ -54,11 +54,11 @@ const SliderButtons: React.FC<SliderButtonsProps> = ({
     RightArrow = () => <FallbackArrow direction="right" />;
   }
 
-  const handleSliderChange = (val: number | number[]) => {
-    if (typeof val === 'number') {
-      onChange(val);
-    } else if (Array.isArray(val)) {
-      onChange(val[0]);
+  const handleSliderChange = (value: number | number[]) => {
+    if (Array.isArray(value)) {
+      onChange(value[0]);  // Take first element if array
+    } else {
+      onChange(value);     // Use value directly if not array
     }
   };
 
