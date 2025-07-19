@@ -1,0 +1,25 @@
+/* RadioButtonContainer.css */
+.radio-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden; /* Prevent content from overflowing */
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 24px; /* Ensure consistent height */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .radio-section {
+    padding: 10px;
+    gap: 8px;
+  }
+}
